@@ -143,8 +143,10 @@ void main(){
 		switch(option){
 
 			case 0:
+				if(front != NULL)
+					clear();
 				break;
-
+				
 			case 1:
 				printf(is_empty() ? "\nTrue\n" : "\nFalse\n");
 				break;
