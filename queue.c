@@ -21,105 +21,105 @@ bool is_empty(){
 
 void display_front(){
 
-	if(is_empty())
+	if(is_empty()){
+
 		printf("\nThe queue is empty!\n");
-	else
-		printf("\n[%d]\n", front->data);
+		return;
+	}
+
+	printf("\n[%d]\n", front->data);
 }
 
 void display_rear(){
 
-	if(is_empty())
+	if(is_empty()){
+
 		printf("\nThe queue is empty!\n");
-	else
-		printf("\n[%d]\n", rear->data);
+		return;
+	}
+	
+	printf("\n[%d]\n", rear->data);
 }
 
 bool enqueue(int value){
 
 	node_ptr item = (node_ptr) malloc(sizeof(struct node));
 
-	if(item != NULL){
+	if (item == NULL)
+		return false;
 
-		item->data = value;
-		item->previous = NULL;
+	item->data = value;
+	item->previous = NULL;
 
-		if(rear == NULL)
-			front = rear = item;
-		else{
-			rear->previous = item;
-			rear = item;
-		}
-
-		return true;
+	if(rear == NULL)
+		front = rear = item;
+	else{
+		rear->previous = item;
+		rear = item;
 	}
 
-	return false;
-
+	return true;
 }
 
 bool dequeue(){
 
-	if(is_empty())
+	if(is_empty()){
+
 		printf("\nThe queue is empty!\n");
-	else{
-
-		node_ptr temp = front;
-		front = front->previous;
-		free(temp);
-
-		return true;
+		return false;
 	}
 
-	return false;
+	node_ptr temp = front;
+	front = front->previous;
+	free(temp);
 
+	return true;
 }
 
 void display(){
 
-	if(is_empty())
+
+	if(is_empty()){
+
 		printf("\nThe queue is empty!\n");
-	else{
+		return;
+	}
 
-		node_ptr temp = front;
+	node_ptr temp = front;
 
-		printf("\n[front -> ");
+	printf("\n[front -> ");
 
-		while(temp != NULL){
-			printf("[%d]", temp->data);
-			temp = temp->previous;
-		}
+	while(temp != NULL){
+		printf("[%d]", temp->data);
+		temp = temp->previous;
+	}
 
-		printf(" <- rear]\n");
-
-	}	
+	printf(" <- rear]\n");
 
 }
 
 bool clear(){
 
-	if(is_empty())
+	if(is_empty()){
+
 		printf("\nThe queue is empty!\n");
-	else{
-
-		node_ptr current = front;
-		node_ptr previous = NULL;
-
-		while(current != NULL){
-
-			previous = current->previous;
-			free(current);
-			current = previous;
-		}
-
-		front = NULL;
-
-		return is_empty();
+		return false;
 	}
 
-	return false;
-}
+	node_ptr current = front;
+	node_ptr previous = NULL;
 
+	while(current != NULL){
+
+		previous = current->previous;
+		free(current);
+		current = previous;
+	}
+
+	front = NULL;
+
+	return is_empty();
+}
 
 void main(){
 
