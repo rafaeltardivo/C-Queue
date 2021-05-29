@@ -61,19 +61,23 @@ bool enqueue(int value){
 	return true;
 }
 
-bool dequeue(){
+int dequeue(){
 
 	if(is_empty()){
 
 		printf("\nThe queue is empty!\n");
-		return false;
+		return -1;
 	}
 
 	node_ptr temp = front;
+	int ret_val = front->data;
+	if (front->previous == NULL) {
+		rear = NULL;		
+	}
 	front = front->previous;
 	free(temp);
 
-	return true;
+	return ret_val;
 }
 
 void display(){
@@ -117,6 +121,7 @@ bool clear(){
 	}
 
 	front = NULL;
+	rear = NULL;
 
 	return is_empty();
 }
@@ -158,7 +163,8 @@ void main(){
 				break;
 
 			case 3:
-				printf(dequeue() ? "\nDequeued :)\n" : "\nSomething went wrong :(\n");
+				value = dequeue();
+				printf(value != -1 ? "\nDequeued :) value [%d]\n" : "\nSomething went wrong :( value [%d]\n", value);
 				break;
 
 			case 4:
